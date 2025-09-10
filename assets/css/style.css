@@ -545,98 +545,24 @@ a:hover {
     margin: 0.25rem 0 0 0;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-    .main-content {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-    }
-    
-    .dashboard-header {
-        padding: 1rem;
-    }
-}
-
+/* Responsive adjustments for edit interface */
 @media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
-    
-    .auth-container {
-        padding: 1rem;
-    }
-    
-    .container {
-        padding: 2rem;
-    }
-    
-    .dashboard-container {
-        padding-top: 70px;
-    }
-    
-    .header-content {
+    .edit-actions {
         flex-direction: column;
-        gap: 1rem;
-        align-items: stretch;
     }
     
-    .user-profile {
-        justify-content: space-between;
-    }
-    
-    .user-info {
-        align-items: flex-start;
-    }
-    
-    .main-content {
-        padding: 1rem;
-        gap: 1rem;
-    }
-    
-    .content-card {
-        padding: 1.5rem;
-    }
-    
-    .todo-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .todo-content {
-        margin-right: 0;
-    }
-    
-    .todo-actions {
-        width: 100%;
-        justify-content: flex-end;
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .auth-container {
-        padding: 0.5rem;
-    }
-    
-    .container {
-        padding: 1.5rem;
-    }
-    
-    .todo-actions {
-        flex-direction: column;
+    .edit-actions .btn-small {
         width: 100%;
     }
     
-    .todo-actions button {
-        width: 100%;
+    .edit-form {
+        padding: 0.75rem;
     }
     
-    .stats-grid {
-        grid-template-columns: 1fr;
+    .edit-input,
+    .edit-textarea {
+        padding: 0.625rem;
+        font-size: 0.875rem;
     }
 }
 
@@ -781,25 +707,232 @@ a:focus {
     color: var(--primary-color);
 }
 
-/* Utility classes */
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
+/* Edit Form Styles */
+.edit-form {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--bg-color);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
 
-.mt-1 { margin-top: 0.25rem; }
-.mt-2 { margin-top: 0.5rem; }
-.mt-3 { margin-top: 0.75rem; }
-.mt-4 { margin-top: 1rem; }
+.edit-input,
+.edit-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background-color: var(--card-bg);
+    font-family: inherit;
+    margin-bottom: 0.5rem;
+}
 
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 0.75rem; }
-.mb-4 { margin-bottom: 1rem; }
+.edit-input:focus,
+.edit-textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
 
-.hidden { display: none; }
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
-.gap-2 { gap: 0.5rem; }
-.gap-4 { gap: 1rem; }
+.edit-textarea {
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.edit-actions .btn-small {
+    flex: 1;
+    justify-content: center;
+}
+
+.edit-btn {
+    background: var(--text-secondary) !important;
+    transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+    background: var(--text-primary) !important;
+    transform: scale(1.05);
+}
+
+.edit-btn.disabled {
+    background: var(--text-muted) !important;
+    cursor: not-allowed !important;
+    opacity: 0.5;
+}
+
+.edit-btn.disabled:hover {
+    background: var(--text-muted) !important;
+    transform: none !important;
+}
+
+/* Enhanced completed task styling */
+.todo-item.completed {
+    opacity: 0.85;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.02));
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.todo-item.completed .todo-content h3 {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.todo-item.completed .todo-content p {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.todo-item.completed .status-badge.completed {
+    background: linear-gradient(135deg, var(--success-color), #059669);
+    color: white;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.todo-item.completed::before {
+    background: linear-gradient(135deg, var(--success-color), #059669);
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Enhanced pending task styling */
+.todo-item.pending .status-badge.pending {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+}
+
+.todo-item.pending::before {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+}
+
+/* Reopen button styling for completed tasks */
+.todo-item.completed .btn-secondary {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: white;
+    position: relative;
+}
+
+.todo-item.completed .btn-secondary:hover {
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+}
+
+.todo-item.completed .btn-secondary::after {
+    content: '↻';
+    margin-left: 0.25rem;
+    font-weight: bold;
+}
+
+/* Enhanced hover effects for completed tasks */
+.todo-item.completed:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+}
+
+/* Visual indicator for editable vs non-editable tasks */
+.todo-item.pending .edit-btn {
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+.todo-item.completed .edit-btn.disabled {
+    position: relative;
+}
+
+.todo-item.completed .edit-btn.disabled::before {
+    content: '🔒';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+/* Enhanced todo item layout for edit mode */
+.todo-item.editing {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.todo-item.editing .todo-content {
+    display: none;
+}
+
+.todo-item.editing .todo-actions {
+    display: none;
+}
+
+.todo-item.editing .edit-form {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Completion indicator */
+.todo-item.completed::after {
+    content: '✓';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--success-color);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    z-index: 1;
+}
+
+/* Mobile responsive adjustments for completed tasks */
+@media (max-width: 768px) {
+    .todo-item.completed::after {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+    
+    .todo-item.completed .edit-btn.disabled::before {
+        width: 14px;
+        height: 14px;
+        font-size: 8px;
+        top: -6px;
+        right: -6px;
+    }
+}

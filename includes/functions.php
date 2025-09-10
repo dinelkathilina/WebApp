@@ -100,7 +100,7 @@ function addTodo($user_id, $title, $description) {
     return $success;
 }
 
-// Update todo status
+// Update todo
 function updateTodoStatus($todo_id, $user_id, $status) {
     $conn = getDBConnection();
     $stmt = $conn->prepare("UPDATE todos SET status = ? WHERE id = ? AND user_id = ?");
@@ -109,6 +109,30 @@ function updateTodoStatus($todo_id, $user_id, $status) {
     $stmt->close();
     $conn->close();
     return $success;
+}
+
+// Update todo content (title and description)
+function updateTodo($todo_id, $user_id, $title, $description) {
+    $conn = getDBConnection();
+    $stmt = $conn->prepare("UPDATE todos SET title = ?, description = ? WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ssii", $title, $description, $todo_id, $user_id);
+    $success = $stmt->execute();
+    $stmt->close();
+    $conn->close();
+    return $success;
+}
+
+// Get single todo by ID
+function getTodoById($todo_id, $user_id) {
+    $conn = getDBConnection();
+    $stmt = $conn->prepare("SELECT * FROM todos WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $todo_id, $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $todo = $result->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+    return $todo;
 }
 
 // Delete todo
