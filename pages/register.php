@@ -3,7 +3,6 @@ session_start();
 require_once '../includes/functions.php';
 
 $errors = [];
-$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = sanitizeInput($_POST['username']);
@@ -43,7 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("sss", $username, $email, $hashed_password);
         
         if ($stmt->execute()) {
-            $success = "Registration successful! You can now <a href='login.php'>login</a>.";
+            $_SESSION['user_id'] = $conn->insert_id;
+            $_SESSION['username'] = $username;
+            header("Location: dashboard.php");
+            exit();
         } else {
             $errors[] = "Registration failed. Please try again.";
         }
@@ -74,10 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php endforeach; ?>
                 </ul>
             </div>
-        <?php endif; ?>
-        
-        <?php if ($success): ?>
-            <div class="success"><?php echo $success; ?></div>
         <?php endif; ?>
         
         <form method="POST" action="">

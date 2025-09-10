@@ -56,8 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_todo'])) {
 </head>
 <body>
     <div class="container">
-        <h1>Welcome, <?php echo htmlspecialchars($user['username']); ?>!</h1>
-        <a href="logout.php">Logout</a>
+        <h1>Welcome, <?php echo htmlspecialchars($user['username']); ?> (<?php echo htmlspecialchars($user['email']); ?>)!</h1>
+        <form method="POST" action="logout.php" style="display: inline;">
+            <button type="submit">Logout</button>
+        </form>
         
         <h2>Add New Todo</h2>
         
